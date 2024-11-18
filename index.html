@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Record</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+    <div class="header">
+       <img id="mysvg" src="/Users/simane/Desktop/SalesRecord/sale-report-report-svgrepo-com.svg" 
+        alt="sales" width="50" height="50">
+        <h1> Sales Record</h1>
+        <div class="btndiv">
+            <button type="button" id="addsale">Add sale</button>
+        </div>
+    </div>
+
+    <div id="dashboard">
+            <div id="overlay" style="display: none;">
+                <div id="formcontainer">
+                    <form id="formdata">
+                        <label for="date">Order Date</label>
+                        <input type="date" id="datenum" name="date" placeholder="mm/dd/yy">
+
+                        <label for="cst">Customer name</label>
+                        <input type="text" id="cst" name="Customer" placeholder="Customer name..">
+    
+                        <label for="qtysold">Sales</label>
+                        <input type="number" id="qty" name="quantity" placeholder="Quantity sold..">
+    
+                        <label for="usstate">State</label>
+                        <input type="text" id="ste" name="usstate" placeholder="State">
+     
+                        <label for="disc">Discount</label>
+                        <select id="disc" name="Discount">
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+    
+                        <label for="itm">Item sold</label>
+                        <select id="itm" name="Item sold">
+                            <option value="Product A">Product A</option>
+                            <option value="Product B">Product B</option>
+                            <option value="Product C">Product C</option>
+                        </select>
+    
+                        <button type="button" id="addnclose" onclick="closePopup()">Add</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div id="displayContainer">
+                 <div id="firstContainer"> 
+                            <table id="salesTable">
+                                <thead>
+                                  <tr>
+                                    <th>Date</th>
+                                    <th>Customer</th>
+                                    <th>Quantity</th>
+                                    <th>State</th>
+                                    <th>Discount</th>
+                                    <th>Item</th>
+                                    <th>Actions</th>
+                                  </tr>
+                                </thead>
+                              <tbody id="tableBody">
+                              </tbody>
+                            </table> 
+                 </div> 
+
+                <div id="mapContainer">Map will display here</div>
+        
+            </div> 
+      
+      
+    
+        <!-- Right Side: Display Charts -->
+        <div id="secondContainer">
+            
+            <div id="stackedContainer">
+                <label for="xAxis">Select X-Axis:</label>
+                    <select id="xAxis">
+                        <option value="date">Date</option>
+                    </select>
+
+                <label for="yAxis">Select Y-Axis:</label>
+                    <select id="yAxis">
+                        <option value="quantity">Quantity</option>
+                    </select>
+
+                <button id="plotChart">Plot Chart</button>
+                <div id="chart"></div>
+                
+            </div>
+
+            <div id="barChartContainer">
+                <label for="filterMonth">Filter by Month:</label>
+                <input type="month" id="filterMonth">
+                <label for="xFieldBarChart">Select X-Axis for Bar Chart:</label>
+
+                <select id="xFieldBarChart">
+                    <option value="usstate">State</option>
+                    <option value="item">Item</option>
+                    <option value="discount">Discount</option>
+                </select>
+
+                <button id="plotBarChart">Plot Bar Chart</button>
+                <div id="barChart"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://unpkg.com/topojson-client@3"></script>
+<script src="https://d3js.org/d3.v6.min.js"></script>
+<script src="javascript.js"></script> 
+
+</body>
+</html>
