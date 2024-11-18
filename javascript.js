@@ -267,6 +267,18 @@ function plotMap() {
             .attr("viewBox", [0, 0, 975, 610])
             .attr("style", "width: 100%; height: auto;");
 
+        const tooltip = d3.select("body")
+            .append("div")
+            .attr("class", "tooltip")
+            .style("position", "absolute")
+            .style("background", "rgba(40, 67, 135, 0.7)")
+            .style("color", "#fff")
+            .style("padding", "5px")
+            .style("border-radius", "5px")
+            .style("pointer-events", "none")
+            .style("opacity", 0);
+           
+
         // Draw the U.S. map background (nation)
         mapSvg.append("path")
             .datum(topojson.feature(us, us.objects.nation))
@@ -295,9 +307,21 @@ function plotMap() {
                 console.log("Centroid for", d.state, ":", centroid);  // Log valid centroids
                 return `translate(${projection(centroid)})`;
             })
+            
             .attr("r", d => radius(d.population))
-          .append("title")
-            .text(d => `${d.state}: ${d.population} orders`);
+    // Add interactive tooltip behavior
+    .on("mouseover", (event, d) => {
+        tooltip
+            .style("opacity", 1)
+            .html(`<strong>${d.state}</strong><br>Sales Volume: ${d.population}`)
+            .style("left", `${event.pageX + 10}px`)
+            .style("top", `${event.pageY + 10}px`);
+    })
+    .on("mouseout", () => {
+        tooltip.style("opacity", 0);
+    });
+
+            
 
         document.getElementById("mapContainer").innerHTML = "";
         document.getElementById("mapContainer").appendChild(mapSvg.node());
@@ -383,6 +407,8 @@ deleteButton.addEventListener("click", function() {
     const index = [...entryRow.parentNode.children].indexOf(entryRow);
     mysalesrecord.splice(index, 1); // Remove from mysalesrecord
     entryRow.remove(); // Remove the row from the table
+     // Re-plot the map after deleting the entry
+     plotMap(); 
 });
 
 plotMap();
